@@ -8,9 +8,9 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-tooltip@0.33.0"></script>
   <style>
     html, body { margin:0; padding:0; background:transparent; }
-    /* The wrapper the Vega view is mounted into */
+ 
     #view { width:100%; /* height set by JS via view.height(...) */ }
-    /* Make the canvas block-level so it doesn’t add inline whitespace */
+
     canvas { display:block; }
   </style>
 </head>
@@ -36,7 +36,6 @@
 
       const container = document.getElementById('view');
 
-      // Create the view once; we’ll resize it on window resize.
       const view = new vega.View(vega.parse(spec), {
         renderer: 'canvas',
         container: container,
@@ -45,17 +44,13 @@
       });
 
       function resize() {
-        // Measure available width; subtract a tiny safety gutter
         const w = Math.max(320, Math.floor(container.clientWidth));
-        // Choose a height that fits your layout; bump if labels feel tight
-        const h = Math.round(w * 0.33); // e.g., 1200px wide -> 400px tall
+        const h = Math.round(w * 0.33); 
         view.width(w).height(h).run();
       }
 
-      // Initial render + bind resize
       resize();
       window.addEventListener('resize', () => {
-        // Use rAF to avoid thrashing during continuous resize
         window.requestAnimationFrame(resize);
       });
     }
@@ -69,3 +64,4 @@
   </script>
 </body>
 </html>
+
